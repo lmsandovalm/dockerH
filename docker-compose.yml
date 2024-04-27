@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  db2:
+    image: postgres
+    environment:
+      POSTGRES_USER: aprendix_database_user
+      POSTGRES_DB: aprendix_database
+      POSTGRES_PASSWORD: dSagIU9xJVELphIXl5xUdxu8QWNEqmTd
+    networks:
+      - mynetwork
+
+  backend:
+    build: ./Backend/
+    command: sh -c "/usr/local/bin/wait-for-it.sh db2:5432 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    ports:
+      - "8000:8000"
+    networks:
+      - mynetwork
+    depends_on:
+      - db2
+    environment:
+      - DATABASE_URL=postgres://aprendix_database_user:dSagIU9xJVELphIXl5xUdxu8QWNEqmTd@db2/aprendix_database
+
+  frontend:
+    build: ./Frontend/
+    ports:
+      - "80:80"
+    networks:
+      - mynetwork
+    depends_on:
+      - backend
+
+
+
+networks:
+  mynetwork:
