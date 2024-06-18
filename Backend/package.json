@@ -1,0 +1,36 @@
+{
+  "name": "aprendix",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node dist/index.js",
+    "dev": "nodemon src/index.js",
+    "prod": "node dist/index.js",
+    "build": "src -d dist",
+    "test": "mocha --timeout 10000"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcrypt": "^5.1.1",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongo": "^0.1.0",
+    "mongodb": "^6.6.1",
+    "mongoose": "^8.3.4",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "validator": "^13.12.0"
+  },
+  "devDependencies": {
+    "chai": "^5.1.1",
+    "cpx": "^1.5.0",
+    "dotenv": "^16.4.5",
+    "mocha": "^10.4.0",
+    "nodemon": "^3.1.0",
+    "supertest": "^7.0.0"
+  },
+  "description": ""
+}

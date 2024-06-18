@@ -1,37 +1,28 @@
-version: '3'
-
+version: '3.8'
 services:
-  db2:
-    image: postgres
-    environment:
-      POSTGRES_USER: aprendix_database_user
-      POSTGRES_DB: aprendix_database
-      POSTGRES_PASSWORD: dSagIU9xJVELphIXl5xUdxu8QWNEqmTd
-    networks:
-      - mynetwork
-
   backend:
-    build: ./Backend/
-    command: sh -c "/usr/local/bin/wait-for-it.sh db2:5432 -- python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile.backend
     ports:
-      - "8000:8000"
-    networks:
-      - mynetwork
-    depends_on:
-      - db2
+      - "3000:3000"
     environment:
-      - DATABASE_URL=postgres://aprendix_database_user:dSagIU9xJVELphIXl5xUdxu8QWNEqmTd@db2/aprendix_database
+      - URL_DATABASE = "mongodb+srv://lmsandoval367:GHAQVR21ZJzal4s5@lauras.5g8njzx.mongodb.net/?retryWrites=true&w=majority&appName=LauraS"
+
+
 
   frontend:
-    build: ./Frontend/
+    build:
+      context: ./Frontend
+      dockerfile:  dockerfile
     ports:
-      - "80:80"
-    networks:
-      - mynetwork
+      - "5176:5173"
     depends_on:
       - backend
-
-
+    networks:
+      - app-network
+    
 
 networks:
-  mynetwork:
+  app-network:
+    driver: bridge
